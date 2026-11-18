@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Lost & Found | Smart Box</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">⌖</div><div><strong>CampusCare</strong><small>LOST & FOUND</small></div></div>
+    <nav>
+      <a class="active" href="#overview">▦ <span>Overview</span></a>
+      <a href="#items">▣ <span>All Items</span></a>
+      <a href="#register">＋ <span>Report an Item</span></a>
+      <a href="#smartbox">▤ <span>Smart Box / RFID</span></a>
+    </nav>
+    <div class="sidebar-bottom"><div class="status-dot"></div><span>System online</span><small>Campus Smart Box</small></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">CAMPUS SERVICES / LOST & FOUND</p><h1>Lost & Found Dashboard</h1></div>
+      <div class="top-actions"><span class="cloud-status"><i></i> Local demo mode</span><button class="primary" id="addTop">＋ Report item</button></div>
+    </header>
+
+    <section id="overview">
+      <div class="welcome"><div><p class="eyebrow light">CAMPUS LOST & FOUND SMART BOX</p><h2>Every item deserves<br>a way back home.</h2><p>Track found belongings, manage claims, and monitor RFID check-ins from one place.</p></div><div class="welcome-icon">⌕</div></div>
+      <div class="stats">
+        <article class="stat-card"><span class="stat-icon purple">▣</span><p>Total items</p><strong id="totalCount">0</strong><small>All registered belongings</small></article>
+        <article class="stat-card"><span class="stat-icon orange">⌕</span><p>Waiting to be claimed</p><strong id="waitingCount">0</strong><small>Currently in safe custody</small></article>
+        <article class="stat-card"><span class="stat-icon green">✓</span><p>Returned to owners</p><strong id="returnedCount">0</strong><small>Successful reunions</small></article>
+        <article class="stat-card"><span class="stat-icon blue">⌁</span><p>In smart box</p><strong id="boxCount">0</strong><small>Items checked in by RFID</small></article>
+      </div>
+    </section>
+
+    <section class="content-grid">
+      <div class="panel" id="items">
+        <div class="panel-head"><div><p class="eyebrow">ITEM DIRECTORY</p><h3>Recently reported items</h3></div><a href="#items" class="text-link" id="viewAll">View all →</a></div>
+        <div class="toolbar"><input id="searchInput" type="search" placeholder="Search item, location or RFID tag…"><select id="statusFilter"><option value="">All statuses</option><option>Found</option><option>Lost</option><option>Claimed</option><option>In Smart Box</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>ITEM</th><th>LOCATION</th><th>DATE</th><th>STATUS</th><th>RFID</th><th></th></tr></thead><tbody id="itemsTable"><tr><td colspan="6" class="empty">Loading items…</td></tr></tbody></table></div>
+      </div>
+
+      <div class="right-column">
+        <div class="panel" id="smartbox">
+          <div class="panel-head"><div><p class="eyebrow">IOT CONNECTION</p><h3>Smart Box activity</h3></div><span class="live-pill"><i></i> DEMO</span></div>
+          <div class="device-card"><div class="device-top"><span class="device-symbol">▤</span><span class="device-online">● Ready</span></div><h4>RFID Smart Box</h4><p>ESP32 · RFID reader · OLED</p><div class="device-screen"><small>CAMPUS SMART BOX</small><strong id="oledText">READY TO SCAN</strong><span id="oledSub">Waiting for RFID tag…</span></div><div class="device-foot"><span>AWS IoT Core</span><span id="deviceState">Not connected</span></div></div>
+          <form id="rfidForm" class="rfid-form"><label for="rfidTag">Simulate RFID scan</label><input id="rfidTag" placeholder="Enter RFID tag ID (e.g. TAG-1001)" required><div class="button-row"><button class="primary" type="submit">Check in</button><button class="secondary" type="button" id="checkoutBtn">Check out</button></div><p class="hint">Demo mode simulates the ESP32 RFID reader and OLED update.</p></form>
+          <div id="rfidMessage" class="notice" hidden></div>
+        </div>
+        <div class="panel quick-panel"><p class="eyebrow">HOW IT WORKS</p><h3>Simple. Secure. Connected.</h3><ol class="steps"><li><b>01</b><span><strong>Register an item</strong><small>Add item details and where it was found.</small></span></li><li><b>02</b><span><strong>Scan the RFID tag</strong><small>Smart Box records check-in/check-out.</small></span></li><li><b>03</b><span><strong>Return it to its owner</strong><small>Update the item status when claimed.</small></span></li></ol></div>
+      </div>
+    </section>
+
+    <section class="panel register-panel" id="register">
+      <div class="panel-head"><div><p class="eyebrow">NEW RECORD</p><h3>Report a lost or found item</h3></div><span class="form-tag">ITEM REGISTRATION</span></div>
+      <form id="itemForm" class="item-form">
+        <label>Item name<input name="name" placeholder="e.g. Blue water bottle" required></label>
+        <label>Report type<select name="type"><option>Found</option><option>Lost</option></select></label>
+        <label>Category<select name="category"><option>Electronics</option><option>Books & stationery</option><option>Clothing</option><option>Accessories</option><option>Other</option></select></label>
+        <label>Location<input name="location" placeholder="e.g. Library, Block A" required></label>
+        <label>Date<input name="date" type="date" required></label>
+        <label>RFID tag ID<input name="rfid" placeholder="Optional tag ID"></label>
+        <label class="wide">Description<textarea name="description" rows="2" placeholder="Colour, brand, identifying details…"></textarea></label>
+        <div class="wide form-actions"><button class="primary" type="submit">Save item record</button><span id="formMessage" class="hint"></span></div>
+      </form>
+    </section>
+    <footer>CampusCare Lost & Found Smart Box <span>ESP32 · AWS IoT Core · Lambda · DynamoDB · S3</span></footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

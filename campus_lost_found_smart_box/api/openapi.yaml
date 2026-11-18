@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Campus Lost & Found Smart Box API
+  version: 1.0.0
+paths:
+  /api/health:
+    get:
+      summary: Check API health
+      responses:
+        '200':
+          description: API is online
+  /api/items:
+    get:
+      summary: List registered items
+      responses:
+        '200':
+          description: Items returned
+    post:
+      summary: Register a lost or found item
+      responses:
+        '201':
+          description: Item created
+  /api/items/{item_id}:
+    patch:
+      summary: Update item status or details
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Item updated
+  /api/rfid/scan:
+    post:
+      summary: Simulate RFID check-in or check-out
+      responses:
+        '200':
+          description: RFID scan processed

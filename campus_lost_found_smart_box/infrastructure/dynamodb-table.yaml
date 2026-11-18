@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: DynamoDB table for Campus Lost & Found Smart Box
+Resources:
+  LostFoundItems:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: CampusLostFoundItems
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+Outputs:
+  TableName:
+    Value: !Ref LostFoundItems
