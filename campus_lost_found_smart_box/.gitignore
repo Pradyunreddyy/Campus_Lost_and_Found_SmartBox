@@ -5,3 +5,8 @@ __pycache__/
 venv/
 backend/data.json
 .DS_Store
+
+# AWS IoT certificates and private keys
+certificates/
+*.private.key
+*.cert.pem

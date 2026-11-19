@@ -24,9 +24,14 @@ def _dynamodb_table():
     table_name = os.getenv("DYNAMODB_TABLE")
     if not table_name:
         return None
+
     import boto3
-    region = os.getenv("AWS_REGION", "ap-south-1")
-    return boto3.resource("dynamodb", region_name=region).Table(table_name)
+
+    dynamodb = boto3.resource(
+        "dynamodb",
+        region_name=os.getenv("AWS_REGION", "ap-south-1")
+    )
+    return dynamodb.Table(table_name)
 
 def list_items():
     table = _dynamodb_table()
