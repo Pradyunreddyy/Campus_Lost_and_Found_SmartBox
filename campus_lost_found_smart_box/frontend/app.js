@@ -1,4 +1,4 @@
-const API = "/api";
+const API = "https://campus-lost-and-found-smartbox.onrender.com/api";
 const $ = (id) => document.getElementById(id);
 let allItems = [];
 
